@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Splashpage.dart';
-import 'package:flutter_application_1/User_repository.dart';
-import 'package:flutter_application_1/bloc/auth_bloc.dart';
+import 'package:flutter_application_1/presentation/pages/Splashpage.dart';
+import 'package:flutter_application_1/data/repository/User_repository.dart';
+import 'package:flutter_application_1/presentation/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/firebase_options.dart';
-import 'package:flutter_application_1/firebaseprovider.dart';
-import 'package:flutter_application_1/loginview.dart';
-import 'package:flutter_application_1/profilepage.dart';
-import 'package:flutter_application_1/registrationview.dart';
+import 'package:flutter_application_1/provider/firebaseprovider.dart';
+import 'package:flutter_application_1/presentation/pages/loginview.dart';
+import 'package:flutter_application_1/presentation/pages/profilepage.dart';
+import 'package:flutter_application_1/presentation/pages/registrationview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 

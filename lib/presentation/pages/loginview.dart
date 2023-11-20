@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_application_1/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/bloc/auth_event.dart';
-import 'package:flutter_application_1/bloc/auth_state.dart';
-import 'package:flutter_application_1/profilepage.dart';
-import 'package:flutter_application_1/registrationview.dart';
+import 'package:flutter_application_1/presentation/bloc/auth_bloc.dart';
+import 'package:flutter_application_1/presentation/bloc/auth_event.dart';
+import 'package:flutter_application_1/presentation/bloc/auth_state.dart';
+import 'package:flutter_application_1/presentation/pages/profilepage.dart';
+import 'package:flutter_application_1/presentation/pages/registrationview.dart';
 import 'package:email_validator/email_validator.dart';
 
 class LoginView extends StatelessWidget {

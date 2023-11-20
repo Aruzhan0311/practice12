@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application_1/firebaseprovider.dart';
+import 'package:flutter_application_1/provider/firebaseprovider.dart';
 
 class UserRepository {
   final FirebaseProvider _firebaseProvider;

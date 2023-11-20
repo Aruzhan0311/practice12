@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/loginview.dart';
+import 'package:flutter_application_1/presentation/pages/loginview.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
