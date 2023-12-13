@@ -1,8 +1,7 @@
-import 'package:flutter_application_1/data/repository/User_repository.dart';
-import 'package:flutter_application_1/presentation/bloc/auth_event.dart';
-import 'package:flutter_application_1/presentation/bloc/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_application_1/presentation/bloc/auth/auth_event.dart';
+import 'package:flutter_application_1/presentation/bloc/auth/auth_state.dart';
+import 'package:flutter_application_1/data/repository/user_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserRepository _userRepository;
@@ -25,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onSignUpRequested(AuthSignUpRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      await _userRepository.signUp(event.email, event.password);
+      await _userRepository.signUp(event.email, event.password, event.name, event.age);
       emit(AuthSuccess());
     } catch (e) {
       emit(AuthFailure(e.toString()));

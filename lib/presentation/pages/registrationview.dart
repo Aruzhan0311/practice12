@@ -1,24 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/colors.dart';
+import 'package:flutter_application_1/generated/locale_keys.g.dart';
+import 'package:flutter_application_1/trasnlationbut.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter_application_1/presentation/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/presentation/bloc/auth_event.dart';
-import 'package:flutter_application_1/presentation/bloc/auth_state.dart';
+import 'package:flutter_application_1/presentation/bloc/auth/auth_bloc.dart';
+import 'package:flutter_application_1/presentation/bloc/auth/auth_event.dart';
+import 'package:flutter_application_1/presentation/bloc/auth/auth_state.dart';
 import 'package:flutter_application_1/presentation/pages/profilepage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class RegistrationView extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
+  final ageController = TextEditingController();
   final _formKey = GlobalKey<FormState>(); 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Регистрация'),
-        backgroundColor: Colors.deepPurple, 
+        title: Text(LocaleKeys.Registration.tr()),
+        backgroundColor: MYColors.primaryColor,
+        actions: [
+            TranslationButton(),
+          ], 
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -46,7 +55,7 @@ class RegistrationView extends StatelessWidget {
                 TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(
-                    labelText: 'Имя',
+                    labelText: LocaleKeys.Name.tr(),
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
@@ -57,10 +66,24 @@ class RegistrationView extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 10),
+                 TextFormField(
+                  controller: ageController,
+                  decoration: InputDecoration(
+                    labelText: LocaleKeys.Age.tr(),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Введите ваш возраст';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 10),
                 TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(
-                    labelText: 'Электронная почта',
+                    labelText: LocaleKeys.Email.tr(),
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) => EmailValidator.validate(value ?? '')
@@ -71,7 +94,7 @@ class RegistrationView extends StatelessWidget {
                 TextFormField(
                   controller: passwordController,
                   decoration: InputDecoration(
-                    labelText: 'Пароль',
+                    labelText: LocaleKeys.Password.tr(),
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
@@ -85,7 +108,7 @@ class RegistrationView extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple, 
+                    backgroundColor: MYColors.primaryColor 
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -93,11 +116,13 @@ class RegistrationView extends StatelessWidget {
                         AuthSignUpRequested(
                           emailController.text,
                           passwordController.text,
+                          ageController.text,
+                          nameController.text,
                         ),
                       );
                     }
                   },
-                  child: Text('Зарегистрироваться'),
+                  child: Text(LocaleKeys.SignUp.tr()),
                 ),
               ],
             ),
@@ -108,8 +133,10 @@ class RegistrationView extends StatelessWidget {
   }
 
   void saveUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('email', emailController.text);
-    await prefs.setString('name', nameController.text);
+    FirebaseFirestore.instance.collection('users').doc(emailController.text).set({
+      'name': nameController.text,
+      'email': emailController.text,
+      'age': ageController.text, 
+    });
   }
 }

@@ -1,16 +1,23 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application_1/provider/firebaseprovider.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserRepository {
-  final FirebaseProvider _firebaseProvider;
+  final firebase_auth.FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firestore;
 
-  UserRepository(this._firebaseProvider);
+  UserRepository(this._firebaseAuth, this._firestore);
 
-  Future<UserCredential> signIn(String email, String password) async {
-    return await _firebaseProvider.signInWithEmailAndPassword(email, password);
+  Future<firebase_auth.UserCredential> signUp(String email, String password, String name, String age) async {
+    var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    await _firestore.collection('users').doc(userCredential.user!.uid).set({
+      'name': name,
+      'age': age,
+      'email': email,
+    });
+    return userCredential;
   }
 
-  Future<UserCredential> signUp(String email, String password) async {
-    return await _firebaseProvider.createUserWithEmailAndPassword(email, password);
+  Future<firebase_auth.UserCredential> signIn(String email, String password) async {
+    return await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
   }
 }

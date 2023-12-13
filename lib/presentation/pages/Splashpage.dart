@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/colors.dart';
 import 'package:flutter_application_1/presentation/pages/loginview.dart';
 import 'package:lottie/lottie.dart';
 
@@ -22,19 +23,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, 
+      backgroundColor: MYColors.primaryColor, 
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Lottie.asset('assets/animate/edu1.json'), 
+            Lottie.asset('assets/animate/edu1.json'),
             SizedBox(height: 30), 
             Text(
               'BLUE',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.deepPurple, 
+                color: MYColors.secondaryColor, 
               ),
             ),
             SizedBox(height: 10), 
@@ -42,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
               'Добро пожаловать!',
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.grey[600], 
+                color: MYColors.blueGreyColor, 
               ),
             ),
           ],

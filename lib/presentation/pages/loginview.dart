@@ -1,9 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/colors.dart';
+import 'package:flutter_application_1/generated/locale_keys.g.dart';
+import 'package:flutter_application_1/presentation/pages/drawe.dart';
+import 'package:flutter_application_1/trasnlationbut.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_application_1/presentation/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/presentation/bloc/auth_event.dart';
-import 'package:flutter_application_1/presentation/bloc/auth_state.dart';
-import 'package:flutter_application_1/presentation/pages/profilepage.dart';
+import 'package:flutter_application_1/presentation/bloc/auth/auth_bloc.dart';
+import 'package:flutter_application_1/presentation/bloc/auth/auth_event.dart';
+import 'package:flutter_application_1/presentation/bloc/auth/auth_state.dart';
 import 'package:flutter_application_1/presentation/pages/registrationview.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -16,8 +20,11 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Вход'),
-        backgroundColor: Colors.deepPurple, 
+        title: Text(LocaleKeys.Login.tr()),
+        backgroundColor: MYColors.primaryColor,
+         actions: [
+            TranslationButton(),
+          ], 
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -33,7 +40,7 @@ class LoginView extends StatelessWidget {
               if (state is AuthSuccess) {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                  MaterialPageRoute(builder: (context) => My()),
                   (Route<dynamic> route) => false,
                 );
               }
@@ -44,7 +51,7 @@ class LoginView extends StatelessWidget {
                 TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(
-                    labelText: 'Электронная почта',
+                    labelText: LocaleKeys.Email.tr(),
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) => EmailValidator.validate(value ?? '')
@@ -55,7 +62,7 @@ class LoginView extends StatelessWidget {
                 TextFormField(
                   controller: passwordController,
                   decoration: InputDecoration(
-                    labelText: 'Пароль',
+                    labelText: LocaleKeys.Password.tr(),
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
@@ -69,7 +76,7 @@ class LoginView extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple, 
+                    backgroundColor: MYColors.primaryColor, 
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -81,7 +88,7 @@ class LoginView extends StatelessWidget {
                       );
                     }
                   },
-                  child: Text('Войти'),
+                  child: Text(LocaleKeys.SignIN.tr()),
                 ),
                 TextButton(
                   onPressed: () {
@@ -90,7 +97,7 @@ class LoginView extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => RegistrationView()),
                     );
                   },
-                  child: Text('Регистрация'),
+                  child: Text(LocaleKeys.Reg.tr()),
                 ),
               ],
             ),
